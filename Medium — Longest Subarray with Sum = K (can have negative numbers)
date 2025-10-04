@@ -1,0 +1,17 @@
+def longest_subarray_sum_k(arr, K):
+    prefix = 0
+    earliest = {0: -1}  # prefix sum -> earliest index
+    best = 0
+    for i, x in enumerate(arr):
+        prefix += x
+        if prefix not in earliest:
+            earliest[prefix] = i
+        need = prefix - K
+        if need in earliest:
+            length = i - earliest[need]
+            if length > best:
+                best = length
+    return best
+
+# Example
+print(longest_subarray_sum_k([1, -1, 5, -2, 3], 3))  # 4 (subarray [1,-1,5,-2])
